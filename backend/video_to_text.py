@@ -27,13 +27,12 @@ class VideoToText:
   def video_to_text(self, video_path):
       audio_path = video_path + "_audio.mp3"
       os.system(f"ffmpeg -i {video_path} {audio_path}")
-      self.transcribe_audio(audio_path)
+      return self.transcribe_audio(audio_path)
 
   def transcribe_audio(self, audio_path):
     print(whisper.load_audio(audio_path))
     transcript = self.model.transcribe(audio_path)
     transcript['segments'] = [TranscriptSegment(s['text'], s['start'], s['end']) for s in transcript['segments']]
-    print(transcript)
     return transcript    
 
 # Example usage

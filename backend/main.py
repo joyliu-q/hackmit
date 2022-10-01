@@ -17,7 +17,9 @@ def add_music(file: bytes = File(...)):
     # TODO: call video_to_text
     vtt = VideoToText()
     vtt.upload_file(file)
-    vtt.video_to_text("data/" + file.filename)
+    res = vtt.video_to_text("data/" + file.filename)
+
+    # Type of res: TranscriptSegment[]
 
     # TODO: call kincent/daniel's code to figure out sentiments
 
