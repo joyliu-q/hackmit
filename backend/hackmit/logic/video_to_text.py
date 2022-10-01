@@ -13,30 +13,11 @@ class TranscriptSegment:
   def __repr__(self):
     return str(self)
 
-model = whisper.load_model("tiny")
+model = whisper.load_model("base")
 options = whisper.DecodingOptions(language="en")
 
 def mp4_to_mp3(mp4_path, mp3_path):
   os.system(f"ffmpeg -i {mp4_path} {mp3_path}")
-
-# Detect the audio language. If it's not english, translate to english.
-def detect_and_translate(audio_path):
-  audio = whisper.load_audio(audio_path)
-
-  # make log-Mel spectrogram and move to the same device as the model
-  mel = whisper.log_mel_spectrogram(audio).to(model.device)
-
-  # detect the spoken language
-  _, probs = model.detect_language(mel)
-  print(f"Detected language: {max(probs, key=probs.get)}")
-
-  # decode the audio
-  options = whisper.DecodingOptions()
-  result = whisper.decode(model, mel, options)
-
-  # print the recognized text
-  print(result.text)
-
 
 def transcribe_audio(audio_path):
   print(whisper.load_audio(audio_path))
@@ -50,4 +31,4 @@ def video_to_text(video_path):
   mp4_to_mp3(video_path, audio_path)
   transcribe_audio(video_path)
 
-video_to_text("barackobamafederalplaza.mp3")
+video_to_text("../../data/barackobamafederalplaza.mp3")
