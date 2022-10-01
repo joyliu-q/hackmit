@@ -12,6 +12,7 @@ djangorestframework = "*"
 django = "*"
 django-cors-headers = "*"
 whisper = {git = "https://github.com/openai/whisper.git"}
+fastapi = "*"
 
 [requires]
 python_version = "3"
