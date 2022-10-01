@@ -14,20 +14,21 @@ class TranscriptSegment:
     return str(self)
 
 class VideoToText:
-  model = whisper.load_model("base")
-  options = whisper.DecodingOptions(language="en")
+  def __init__(self):
+    self.model = whisper.load_model("base")
+    self.options = whisper.DecodingOptions(language="en")
 
-  def __init__(self, video_path):
+  def video_to_text(self, video_path):
       audio_path = video_path + "_audio.mp3"
-      mp4_to_mp3(video_path, audio_path)
-      transcribe_audio(video_path)
+      os.system(f"ffmpeg -i {video_path} {audio_path}")
+      self.transcribe_audio(audio_path)
 
-  def mp4_to_mp3(mp4_path, mp3_path):
-    os.system(f"ffmpeg -i {mp4_path} {mp3_path}")
-
-  def transcribe_audio(audio_path):
+  def transcribe_audio(self, audio_path):
     print(whisper.load_audio(audio_path))
-    transcript = model.transcribe(audio_path)
+    transcript = self.model.transcribe(audio_path)
     transcript['segments'] = [TranscriptSegment(s['text'], s['start'], s['end']) for s in transcript['segments']]
     print(transcript)
     return transcript    
+
+vtt = VideoToText()
+vtt.video_to_text("../../data/barackobamafederalplaza.mp3")
