@@ -1,3 +1,4 @@
+from backend.video_to_text import VideoToText
 from fastapi import FastAPI, HTTPException
 
 app = FastAPI()
@@ -14,6 +15,9 @@ def add_music(file: bytes = File(...)):
         raise HTTPException(status_code=400, detail="File must be less than 10MB.")
     
     # TODO: call video_to_text
+    vtt = VideoToText()
+    vtt.upload_file(file)
+    vtt.video_to_text("data/" + file.filename)
 
     # TODO: call kincent/daniel's code to figure out sentiments
 

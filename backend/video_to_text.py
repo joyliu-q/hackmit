@@ -1,4 +1,5 @@
 import os
+import shutil
 import numpy as np
 
 import whisper
@@ -17,6 +18,11 @@ class VideoToText:
   def __init__(self):
     self.model = whisper.load_model("base")
     self.options = whisper.DecodingOptions(language="en")
+
+  def upload_file(self, file = File(...)):
+    # save file locally
+    with open("data/" + file.filename, "wb") as buffer:
+      shutil.copyfileobj(file.file, buffer)
 
   def video_to_text(self, video_path):
       audio_path = video_path + "_audio.mp3"
