@@ -11,6 +11,7 @@ dj-database-url = "*"
 djangorestframework = "*"
 django = "*"
 django-cors-headers = "*"
+spacy = "*"
 
 [requires]
 python_version = "3"
