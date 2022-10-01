@@ -30,5 +30,6 @@ class VideoToText:
     print(transcript)
     return transcript    
 
+# Example usage
 vtt = VideoToText()
 vtt.video_to_text("../../data/barackobamafederalplaza.mp3")
