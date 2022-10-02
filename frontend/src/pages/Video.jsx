@@ -4,7 +4,7 @@ import { Box } from "@mui/system";
 import Plyr from "plyr-react";
 import "plyr-react/plyr.css";
 
-const Video = () => {
+const Video = ({ url }) => {
   const ref = useRef(null);
 
   return (
@@ -26,7 +26,7 @@ const Video = () => {
             title: "Elephants Dream",
             sources: [
               {
-                src: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+                src: url,
                 type: "video/mp4",
               },
             ],

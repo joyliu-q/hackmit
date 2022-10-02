@@ -38,14 +38,27 @@ const ContainerBox = styled(Box)({
   alignItems: "center",
 });
 
-const Home = () => {
+const Home = ({ onUpload }) => {
   const handleSubmit = async (e) => {
     // get the file from the input
     const video = e.target.files[0];
 
-    await axios.post("http://localhost:8000/add-music", {
-      file: video,
-    });
+    await axios.post(
+      "http://localhost:8000/add-music",
+      {
+        file: video,
+      },
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    console.log(video.name);
+    console.log("UPLOADED");
+
+    onUpload(video.name);
   };
 
   return (
