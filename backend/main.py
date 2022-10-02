@@ -52,10 +52,12 @@ def add_music(file: UploadFile):
     result_audio.export(new_audio_path, format="mp3")
 
     # TODO: add music
-    os.system(f'ffmpeg -i "{saved_path}" -stream_loop -1 -i "{new_audio_path}" -map 0:v -map 1:a -c:v copy -shortest "{saved_path}')
+    os.system(f"mkdir -p ../frontend/src/data")
+    os.system(f"touch ../frontend/src/{saved_path}")
+    os.system(f'ffmpeg -i {saved_path} -i {new_audio_path} -c:v copy -map 0:v:0 -map 1:a:0 ../frontend/src/{saved_path} -y')
 
     # copy file over to ../frontend/public
-    os.system(f'cp {saved_path} ./../frontend/src/{saved_path}')
+    # os.system(f'cp {saved_path} ../frontend/src/{saved_path} -y')
 
     # TODO: return the actual clip as an output? or S3 bucket lol idk
 

@@ -3,6 +3,7 @@
 # dependencies
 backend/__pycache__/
 frontend/node_modules
+frontend/src/data
 backend/data
 /.pnp
 .pnp.js
