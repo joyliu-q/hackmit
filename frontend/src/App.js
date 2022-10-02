@@ -41,10 +41,17 @@ function App() {
         <form action="/target" id="dropzone">
           LMAO
         </form>
+      {video && <>
+        <video width="750" height="500" controls >
+          <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4"/>
+        </video>
+      </>}
+      <header className="App-header">
         <form onSubmit={handleSubmit}>
           <input type="file" id="video" name="video" accept="video/*" />
           <input type="submit" value="Submit" />
-        </form>
+          </form>
+        </header>
       </div>
       {true && <>
         <Plyr  {

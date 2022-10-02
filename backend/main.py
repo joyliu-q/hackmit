@@ -1,5 +1,6 @@
 import os
 import io
+from sentimentanalysis import get_song_info
 
 from video_to_text import VideoToText
 import uvicorn
@@ -27,19 +28,20 @@ def hello_view(name: str = "Human"):
 
 @app.post("/add-music")
 def add_music(file: UploadFile):
-    if len(file) == 0:
-        raise HTTPException(status_code=400, detail="File must have some content.")
-    if len(file) > 10 << 20:
-        raise HTTPException(status_code=400, detail="File must be less than 10MB.")
-    
     # TODO: call video_to_text
+
+    # save file to disk
+    with open(file.filename, "wb") as f:
+        f.write(file.file.read())
+
     vtt = VideoToText()
-    vtt.upload_file(file)
-    res = vtt.video_to_text("data/" + file.filename)
+    res = vtt.video_to_text(file.filename)
 
     # Type of res: TranscriptSegment[]
+    print(res)
 
     # TODO: call kincent/daniel's code to figure out sentiments
+    sentiments = get_song_info(res['segments'])
     
     # TODO: from sentiment, figure out which musics to insert
 

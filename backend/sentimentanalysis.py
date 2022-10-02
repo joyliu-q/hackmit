@@ -1,35 +1,48 @@
 import text2emotion as te
 import json
 import random
+import nltk
+import os
 
+from video_to_text import TranscriptSegment
 
 songs = {
-    "happy": ["data/Bliss.mp3", "data/Island.mp3"],
-    "sad": ["data/test.mp3"],
-    "angry": ["data/test.mp3"],
-    "surprise": ["data/test.mp3"],
-    "fear":["data/test.mp3"],
-    "neutral": ["data/test.mp3"]
-
+    "Happy": [],
+    "Sad": [],
+    "Angry": [],
+    "Surprise": [],
+    "Fear":[],
+    "Neutral": []
 }
 
 
-test_data =[{'start': 120, 'end': 300, 'text': 'and then obama said'}]
+test_data =[TranscriptSegment("I am happy", 0, 1), TranscriptSegment("I am sad", 1, 2), TranscriptSegment("I am angry", 2, 3), TranscriptSegment("I am surprised", 3, 4), TranscriptSegment("I am afraid", 4, 5), TranscriptSegment("I am neutral", 5, 6)]
+
+def populate_song():
+    path = "./data/Songs"
+    for key in songs:
+        dir_list = os.listdir(path + '/' + key)
+        songs[key]= dir_list
+    print(songs)
 
 
-def get_song_info(data):
-    sentences = data.copy()
+def get_song_info(sentences):
     song = None
+    output = []
+
+    populate_song()
     for i in range(len(sentences)):
         print(sentences[i])
-        emotion = get_emotion(sentences[i]['text'])
+        emotion = get_emotion(sentences[i].text)
         song = songs[emotion][random.randint(0, len(songs[emotion])- 1)]
 
-    return {
-            'start': sentences[i]['start'],
-            'end': sentences[i]['start'],
+        output.append({
+            'start': sentences[i].start_time,
+            'end': sentences[i].end_time,
             'song': song
-        }
+        })
+
+    return output
 
 
 
@@ -49,8 +62,10 @@ def get_emotion(text):
             neutral = True
 
     if neutral:
-        return "neutral"
+        return "Neutral"
 
     return result
+
+nltk.download("omw-1.4")
 
 print(get_song_info(test_data))
