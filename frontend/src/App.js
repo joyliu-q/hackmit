@@ -36,8 +36,7 @@ function App() {
               title: 'Example title',
               sources: [
                 {
-                  // src: `../backend/${videoSrc}`,
-                  src: "./data/shoes.mp4",
+                  src: videoSrc,
                   type: 'video/mp4',
                   size: 720,
                 }
