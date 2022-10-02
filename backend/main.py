@@ -48,13 +48,18 @@ def add_music(file: UploadFile):
 
     result_audio = overlay_music(audio_path, sentiments)
 
-    result_audio.export("data/result.mp3", format="mp3")
+    new_audio_path = "data/result.mp3"
+    result_audio.export(new_audio_path, format="mp3")
 
     # TODO: add music
+    os.system(f'ffmpeg -i "{saved_path}" -stream_loop -1 -i "{new_audio_path}" -map 0:v -map 1:a -c:v copy -shortest "{saved_path}')
+
+    # copy file over to ../frontend/public
+    os.system(f'cp {saved_path} ./../frontend/src/{saved_path}')
 
     # TODO: return the actual clip as an output? or S3 bucket lol idk
 
-    return {"music": "TODO"}
+    return {"path": saved_path}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

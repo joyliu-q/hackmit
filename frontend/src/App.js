@@ -7,22 +7,13 @@ import Dropzone from "dropzone";
 const axios = require("axios");
 
 function App() {
-  const [video, setVideo] = useState(null);
-  Dropzone.autoDiscover = false;
-
-  React.useEffect(() => {
-    let myDropzone = new Dropzone("div.my-dropzone", { url: "/file/post" });
-    myDropzone.on("addedfile", async (video) => {
-      console.log(`File added: ${video.name}`);
-      setVideo(video);
-      // TODO: await resp
-    });
-  }, []);
+  const [videoSrc, setVideoSrc] = useState(null);
 
   async function handleSubmit(event) {
+    event.preventDefault();
     const video = event.target.video.files[0];
     console.log(video);
-    setVideo(video);
+    setVideoSrc(video);
 
     const response = await axios.post(
       "http://localhost:8000/add-music",
@@ -30,27 +21,36 @@ function App() {
       { headers: { "Content-Type": "multipart/form-data" } }
     );
     console.log(response);
-    event.preventDefault();
+    console.log(response.data.path);
+    setVideoSrc(response.path);
   }
 
   return (
     <div className="App">
-      {video && (
+      {true && (
         <>
-          <video width="750" height="500" controls>
-            <source
-              src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
-              type="video/mp4"
-            />
-          </video>
+          <Plyr  {
+          ...{
+            source: {
+              type: 'video',
+              title: 'Example title',
+              sources: [
+                {
+                  // src: `../backend/${videoSrc}`,
+                  src: videoSrc,
+                  type: 'video/mp4',
+                  size: 720,
+                }
+              ]
+            }
+          }}
+          />
         </>
       )}
-      <header className="App-header">
-        <form onSubmit={handleSubmit}>
-          <input type="file" id="video" name="video" accept="video/*" />
-          <input type="submit" value="Submit" />
-        </form>
-      </header>
+      <form onSubmit={handleSubmit}>
+        <input type="file" id="video" name="video" accept="video/*" />
+        <input type="submit" value="Submit" />
+      </form>
     </div>
   );
 }
