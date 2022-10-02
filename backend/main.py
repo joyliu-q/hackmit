@@ -5,9 +5,12 @@ from sentimentanalysis import get_song_info
 from video_to_text import VideoToText
 import uvicorn
 from fastapi import FastAPI, UploadFile, HTTPException
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.mount("/data", StaticFiles(directory="data"), name="data")
 
 origins = [
     "http://localhost",
@@ -51,11 +54,12 @@ def add_music(file: UploadFile):
 
     new_audio_path = "data/result.mp3"
     result_audio.export(new_audio_path, format="mp3")
+    print("EXPOteD")
 
     # TODO: add music
-    os.system(f"mkdir -p ../frontend/public/data")
-    os.system(f'touch "../frontend/public/{saved_path}"')
-    os.system(f'ffmpeg -i {saved_path} -i {new_audio_path} -c:v copy -map 0:v:0 -map 1:a:0 "../frontend/public/{saved_path}" -y')
+    os.system(f"mkdir -p data")
+    os.system(f'touch "../{saved_path}"')
+    os.system(f'ffmpeg -i {saved_path} -i {new_audio_path} -c:v copy -map 0:v:0 -map 1:a:0 "../{saved_path}" -y')
 
     # copy file over to ../frontend/public
     # os.system(f'cp {saved_path} ../frontend/src/{saved_path} -y')
