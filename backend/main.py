@@ -58,8 +58,8 @@ def add_music(file: UploadFile):
 
     # TODO: add music
     os.system(f"mkdir -p data")
-    os.system(f'touch "../{saved_path}"')
-    os.system(f'ffmpeg -i {saved_path} -i {new_audio_path} -c:v copy -map 0:v:0 -map 1:a:0 "../{saved_path}" -y')
+    os.system(f'touch "{saved_path}"')
+    os.system(f'ffmpeg -i {saved_path} -i {new_audio_path} -c:v copy -map 0:v:0 -map 1:a:0 "data/result.mp4" -y')
 
     # copy file over to ../frontend/public
     # os.system(f'cp {saved_path} ../frontend/src/{saved_path} -y')

@@ -26,7 +26,7 @@ const Video = ({ video }) => {
             title: "Elephants Dream",
             sources: [
               {
-                src: `http://localhost:8000/data/${video}`,
+                src: `http://localhost:8000/data/result.mp4`,
                 type: "video/mp4",
               },
             ],
