@@ -4,12 +4,12 @@ import random
 
 
 songs = {
-    "happy": ["Bliss.mp3", "Island.mp3"],
-    "sad": ["test"],
-    "angry": ["test"],
-    "surprise": ["test"],
-    "fear":["test"],
-    "neutral": ["test"]
+    "happy": ["data/Bliss.mp3", "data/Island.mp3"],
+    "sad": ["data/test.mp3"],
+    "angry": ["data/test.mp3"],
+    "surprise": ["data/test.mp3"],
+    "fear":["data/test.mp3"],
+    "neutral": ["data/test.mp3"]
 
 }
 
