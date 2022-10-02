@@ -22,7 +22,8 @@ function App() {
     );
     console.log(response);
     console.log(response.data.path);
-    setVideoSrc(response.path);
+    console.log(videoSrc)
+    setVideoSrc(response.data.path);
   }
 
   return (

@@ -27,7 +27,6 @@ app.add_middleware(
 def hello_view(name: str = "Human"):
     return {"message": f"Hello there, {name}!"}
 
-
 @app.post("/add-music")
 def add_music(file: UploadFile):
     # TODO: call video_to_text
@@ -55,7 +54,7 @@ def add_music(file: UploadFile):
 
     # TODO: add music
     os.system(f"mkdir -p ../frontend/public/data")
-    os.system(f'touch "../frontend/src/{saved_path}"')
+    os.system(f'touch "../frontend/public/{saved_path}"')
     os.system(f'ffmpeg -i {saved_path} -i {new_audio_path} -c:v copy -map 0:v:0 -map 1:a:0 "../frontend/public/{saved_path}" -y')
 
     # copy file over to ../frontend/public

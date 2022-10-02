@@ -11,6 +11,7 @@ python-multipart = "*"
 text2emotion = "*"
 emoji = "==1.7.0"
 pydub = "*"
+langdetect = "*"
 
 [requires]
 python_version = "3"
