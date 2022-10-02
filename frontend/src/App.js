@@ -1,16 +1,19 @@
 import './App.css';
 import React, { useState } from 'react';
 import './good_video.mp4';
+const axios = require('axios');
 
 function App() {
   const [video, setVideo] = useState(null);
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     const video = event.target.video.value;
     console.log(video)
     setVideo(video)
 
     // TODO: send it over to backend server, which makes a new video, puts the file in s3 bucket, and returns file path
+    const response = await axios.post('http://localhost:8000/add-music', {file: video}, {headers: {'Content-Type': 'multipart/form-data'}});
+    console.log(response)
     event.preventDefault();
   }
 
