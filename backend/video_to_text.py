@@ -3,6 +3,7 @@ import shutil
 import numpy as np
 
 import whisper
+from fastapi import UploadFile
 
 class TranscriptSegment:
   def __init__(self, text, start_time, end_time):
@@ -19,7 +20,7 @@ class VideoToText:
     self.model = whisper.load_model("base")
     self.options = whisper.DecodingOptions(language="en")
 
-  def upload_file(self, file = File(...)):
+  def upload_file(self, file: UploadFile):
     # save file locally
     with open("data/" + file.filename, "wb") as buffer:
       shutil.copyfileobj(file.file, buffer)
@@ -36,5 +37,5 @@ class VideoToText:
     return transcript    
 
 # Example usage
-vtt = VideoToText()
-vtt.video_to_text("../../data/barackobamafederalplaza.mp3")
+# vtt = VideoToText()
+# vtt.video_to_text("../../data/barackobamafederalplaza.mp3")

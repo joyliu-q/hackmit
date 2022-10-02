@@ -1,5 +1,9 @@
+import os
+import io
+
 from video_to_text import VideoToText
-from fastapi import FastAPI, HTTPException, File
+import uvicorn
+from fastapi import FastAPI, UploadFile, HTTPException
 
 app = FastAPI()
 
@@ -7,8 +11,8 @@ app = FastAPI()
 def hello_view(name: str = "Human"):
     return {"message": f"Hello there, {name}!"}
 
-@app.get("/add-music")
-def add_music(file: bytes = File(...)):
+@app.post("/add-music")
+def add_music(file: UploadFile):
     if len(file) == 0:
         raise HTTPException(status_code=400, detail="File must have some content.")
     if len(file) > 10 << 20:
@@ -30,3 +34,6 @@ def add_music(file: bytes = File(...)):
     # TODO: return the actual clip as an output? or S3 bucket lol idk
 
     return {"music": "TODO"}
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
