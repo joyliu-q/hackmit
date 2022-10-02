@@ -43,22 +43,29 @@ const Home = ({ onUpload }) => {
     // get the file from the input
     const video = e.target.files[0];
 
-    await axios.post(
-      "http://localhost:8000/add-music",
-      {
-        file: video,
-      },
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
+    axios
+      .post(
+        "http://localhost:8000/add-music",
+        {
+          file: video,
         },
-      }
-    );
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          timeout: 1000_000,
+        }
+      )
+      .then((res) => {
+        console.log("asdjfklsadjf klsajfd ksd");
+        console.log(video.name);
+        onUpload(video.name);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
-    console.log(video.name);
-    console.log("UPLOADED");
-
-    onUpload(video.name);
+    e.preventDefault();
   };
 
   return (
