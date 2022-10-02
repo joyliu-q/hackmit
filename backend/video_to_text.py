@@ -2,6 +2,8 @@ import os
 import shutil
 import numpy as np
 
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+
 import whisper
 from fastapi import UploadFile
 
@@ -27,7 +29,7 @@ class VideoToText:
 
   def video_to_text(self, video_path):
       audio_path = video_path + "_audio.mp3"
-      os.system(f"ffmpeg -i {video_path} {audio_path}")
+      os.system(f'ffmpeg -i "{video_path}" "{audio_path}" -y')
       return self.transcribe_audio(audio_path)
 
   def transcribe_audio(self, audio_path):
