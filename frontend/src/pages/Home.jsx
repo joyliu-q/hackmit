@@ -1,6 +1,7 @@
 import { Box, Typography, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
-
+import CircularProgress from '@mui/material/CircularProgress';
+import { useRef, useState } from 'react';
 
 const StyledButton = styled(Button)({
     '&:hover': {
@@ -44,7 +45,15 @@ const ContainerBox = styled(Box) ({
 })
 
 const Home = () => {
+    const [isSubmitted, setIsSubmitted] = useState(false)
+    const formRef = useRef(null)
 
+    const Submit = (event) => {
+        event.preventDefault()
+        setIsSubmitted(true)
+        // formRef.current.submit()
+        console.log('test') 
+    }
 
     return (
         <ContainerBox>
@@ -55,16 +64,18 @@ const Home = () => {
                 </Box>
                 <StyledBox sx={{flex: 2, marginLeft: '200px'}}>
                     <CenteredBox>
-                         <form
-                            action="http://0.0.0.0:8000/add-music"
-                            method="POST"
-                            encType="multipart/form-data"
-                        >
-                            <CenteredButton type="file" name="file" component="label" variant="contained">Upload<input type="file" hidden onChange={'form.submit()'}></input></CenteredButton>
-                        </form>
-
-                        <Typography sx={{top: '40%', textAlign: 'center'}}variant="h4">Drop files or upload files here</Typography>
-                        
+                        {
+                          isSubmitted ? <CircularProgress/> : (
+                        <>
+                                <form
+                                    ref={formRef}
+                                    action="http://0.0.0.0:8000/add-music"
+                                    method="POST"
+                                    encType="multipart/form-data"
+                                >
+                                    <CenteredButton type="file" name="file" component="label" variant="contained">Upload<input type="file" hidden onChange={Submit}></input></CenteredButton>
+                                </form><Typography sx={{ top: '40%', textAlign: 'center' }} variant="h4">Drop files or upload files here</Typography></>)
+                        }
                     </CenteredBox>
                 </StyledBox>
             </Box>
