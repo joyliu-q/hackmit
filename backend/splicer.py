@@ -52,7 +52,7 @@ def overlay_music(base_file, segments):
 
 def low_high_beginning(audio):
     duration = 200
-    db_less = 5
+    db_less = 10
     steps = 5
 
     beginning_audio = audio[:duration] - db_less
@@ -66,7 +66,7 @@ def low_high_beginning(audio):
 
 def high_low_end(audio):
     duration = 200
-    db_less = 5
+    db_less = 10
     steps = 5
 
     end_audio = audio[-duration:] - db_less
