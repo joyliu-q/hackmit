@@ -1,5 +1,5 @@
-from backend.video_to_text import VideoToText
-from fastapi import FastAPI, HTTPException
+from video_to_text import VideoToText
+from fastapi import FastAPI, HTTPException, File
 
 app = FastAPI()
 
