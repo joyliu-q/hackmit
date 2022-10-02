@@ -37,7 +37,7 @@ function App() {
               sources: [
                 {
                   // src: `../backend/${videoSrc}`,
-                  src: videoSrc,
+                  src: "./data/shoes.mp4",
                   type: 'video/mp4',
                   size: 720,
                 }
