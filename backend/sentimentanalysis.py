@@ -2,25 +2,35 @@ import text2emotion as te
 import json
 import random
 import nltk
+import os
 
 from video_to_text import TranscriptSegment
 
 songs = {
-    "Happy": ["HAPPY"],
-    "Sad": ["SAD"],
-    "Angry": ["ANGRY"],
-    "Surprise": ["SURPRISE"],
-    "Fear":["FEAR"],
-    "Neutral": ["NEUTRAL"]
+    "Happy": [],
+    "Sad": [],
+    "Angry": [],
+    "Surprise": [],
+    "Fear":[],
+    "Neutral": []
 }
 
 
 test_data =[TranscriptSegment("I am happy", 0, 1), TranscriptSegment("I am sad", 1, 2), TranscriptSegment("I am angry", 2, 3), TranscriptSegment("I am surprised", 3, 4), TranscriptSegment("I am afraid", 4, 5), TranscriptSegment("I am neutral", 5, 6)]
 
+def populate_song():
+    path = "./data/Songs"
+    for key in songs:
+        dir_list = os.listdir(path + '/' + key)
+        songs[key]= dir_list
+    print(songs)
+
 
 def get_song_info(sentences):
     song = None
     output = []
+
+    populate_song()
     for i in range(len(sentences)):
         print(sentences[i])
         emotion = get_emotion(sentences[i].text)
