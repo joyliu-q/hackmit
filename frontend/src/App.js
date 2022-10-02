@@ -1,9 +1,23 @@
 import React, { useState } from "react";
 import "./good_video.mp4";
+import Plyr from "plyr-react";
+import "plyr-react/plyr.css";
+import Dropzone from "dropzone";
+
 const axios = require("axios");
 
 function App() {
   const [video, setVideo] = useState(null);
+  Dropzone.autoDiscover = false;
+
+  React.useEffect(() => {
+    let myDropzone = new Dropzone("div.my-dropzone", { url: "/file/post" });
+    myDropzone.on("addedfile", async (video) => {
+      console.log(`File added: ${video.name}`);
+      setVideo(video);
+      // TODO: await resp
+    });
+  }, []);
 
   async function handleSubmit(event) {
     const video = event.target.video.files[0];

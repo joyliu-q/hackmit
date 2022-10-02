@@ -2,15 +2,7 @@ name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
 
-[dev-packages]
-django-debug-toolbar = "*"
-django-extensions = "*"
-
 [packages]
-dj-database-url = "*"
-djangorestframework = "*"
-django = "*"
-django-cors-headers = "*"
 spacy = "*"
 whisper = {git = "https://github.com/openai/whisper.git"}
 fastapi = "*"
