@@ -1,4 +1,3 @@
-import './App.css';
 import React, { useState } from 'react';
 import './good_video.mp4';
 import Plyr from "plyr-react"
@@ -9,9 +8,10 @@ const axios = require('axios');
 
 function App() {
   const [video, setVideo] = useState(null);
+  Dropzone.autoDiscover = false;
 
   React.useEffect(() => {
-    let myDropzone = new Dropzone("#dropzone");
+    let myDropzone = new Dropzone("div.my-dropzone", { url: "/file/post" });
     myDropzone.on("addedfile", async (video) => {
       console.log(`File added: ${video.name}`);
       setVideo(video)
@@ -38,9 +38,9 @@ function App() {
     <div className="App">
       <div className="convert-container">
         <h1>[Title Here]</h1>
-        <form action="/target" id="dropzone">
+        <div className="my-dropzone">
           LMAO
-        </form>
+        </div>
       {video && <>
         <video width="750" height="500" controls >
           <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4"/>
