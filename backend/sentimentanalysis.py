@@ -21,9 +21,10 @@ test_data =[TranscriptSegment("I am happy", 0, 1), TranscriptSegment("I am sad",
 def populate_song():
     path = "./data/Songs"
     for key in songs:
-        dir_list = os.listdir(path + '/' + key)
+        dir_list = os.listdir(os.path.join(path, key))
+        dir_list = [os.path.join(path, key, file) for file in dir_list]
+        print(dir_list)
         songs[key]= dir_list
-    print(songs)
 
 
 def get_song_info(sentences):
@@ -32,7 +33,6 @@ def get_song_info(sentences):
 
     populate_song()
     for i in range(len(sentences)):
-        print(sentences[i])
         emotion = get_emotion(sentences[i].text)
         song = songs[emotion][random.randint(0, len(songs[emotion])- 1)]
 

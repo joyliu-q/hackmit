@@ -27,9 +27,12 @@ class VideoToText:
     with open("data/" + file.filename, "wb") as buffer:
       shutil.copyfileobj(file.file, buffer)
 
-  def video_to_text(self, video_path):
+  def extract_audio(self, video_path):
       audio_path = video_path + "_audio.mp3"
       os.system(f'ffmpeg -i "{video_path}" "{audio_path}" -y')
+      return audio_path
+
+  def video_to_text(self, audio_path):
       return self.transcribe_audio(audio_path)
 
   def transcribe_audio(self, audio_path):

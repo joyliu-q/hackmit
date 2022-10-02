@@ -1,0 +1,45 @@
+from pydub import AudioSegment
+
+def cut(audio: AudioSegment, start: float, end: float):
+    start = int(start * 1000)
+    end = int(end * 1000)
+
+    return audio[start:end]
+
+
+def load_files(filenames):
+    musics = dict()
+
+    for filename in filenames:
+        musics[filename] = AudioSegment.from_mp3(filename)
+
+    return musics
+
+
+"""
+
+[
+    {
+        "start": 0,
+        "end": 10,
+        "song": "asdf.mp3"
+    },
+]
+"""
+def overlay_music(base_file, segments):
+    base_audio = AudioSegment.from_mp3(base_file)
+
+    music_map = load_files(set([s["song"] for s in segments]))
+
+    print(music_map)
+
+    for segment in segments:
+        song_audio = music_map[segment["song"]]
+        start = segment["start"]
+        end = segment["end"]
+
+        song_audio = cut(song_audio, 0, end - start) - 15
+        base_audio = base_audio.overlay(song_audio, position=start * 1000)
+
+    return base_audio
+

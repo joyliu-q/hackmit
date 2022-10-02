@@ -1,5 +1,5 @@
 import os
-import io
+from splicer import overlay_music
 from sentimentanalysis import get_song_info
 
 from video_to_text import VideoToText
@@ -30,20 +30,25 @@ def hello_view(name: str = "Human"):
 def add_music(file: UploadFile):
     # TODO: call video_to_text
 
+    saved_path = os.path.join("data", file.filename)
     # save file to disk
-    with open(file.filename, "wb") as f:
+    with open(saved_path, "wb") as f:
         f.write(file.file.read())
 
     vtt = VideoToText()
-    res = vtt.video_to_text(file.filename)
+    audio_path = vtt.extract_audio(saved_path)
+    res = vtt.video_to_text(audio_path)
 
     # Type of res: TranscriptSegment[]
-    print(res)
 
     # TODO: call kincent/daniel's code to figure out sentiments
     sentiments = get_song_info(res['segments'])
     
     # TODO: from sentiment, figure out which musics to insert
+
+    result_audio = overlay_music(audio_path, sentiments)
+
+    result_audio.export("data/result.mp3", format="mp3")
 
     # TODO: add music
 

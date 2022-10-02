@@ -18,6 +18,7 @@ uvicorn = "*"
 python-multipart = "*"
 text2emotion = "*"
 emoji = "==1.7.0"
+pydub = "*"
 
 [requires]
 python_version = "3"
