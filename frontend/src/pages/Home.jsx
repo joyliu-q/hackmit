@@ -1,6 +1,7 @@
 import { Box, Typography, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import axios from "axios";
+import "./Home.css";
 
 const StyledButton = styled(Button)({
   "&:hover": {
@@ -63,6 +64,9 @@ const Home = ({ onUpload }) => {
 
   return (
     <ContainerBox>
+      <video className='videoTag' autoPlay loop muted>
+        <source src={"sample.mp4"} type='video/mp4' />
+      </video>
       <Box sx={{ height: "30vh", padding: "40px", display: "flex" }}>
         <Box sx={{ flex: 2 }}>
           <Typography variant="h2">We make video editing easy</Typography>
@@ -71,7 +75,7 @@ const Home = ({ onUpload }) => {
             for any video
           </Typography>
         </Box>
-        <StyledBox sx={{ flex: 2, marginLeft: "200px" }}>
+        <StyledBox sx={{ flex: 2, marginLeft: "200px", backgroundColor: "#F5F5F5" }}>
           <CenteredBox>
             <form onSubmit={handleSubmit}>
               <CenteredButton
