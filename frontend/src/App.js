@@ -9,6 +9,8 @@ function App() {
     const video = event.target.video.value;
     console.log(video)
     setVideo(video)
+
+    // TODO: send it over to backend server, which makes a new video, puts the file in s3 bucket, and returns file path
     event.preventDefault();
   }
 
