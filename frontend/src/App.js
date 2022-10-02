@@ -1,22 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
+import './good_video.mp4';
 
 function App() {
+  const [video, setVideo] = useState(null);
+
+  function handleSubmit(event) {
+    const video = event.target.video.value;
+    console.log(video)
+    setVideo(video)
+    event.preventDefault();
+  }
+
   return (
     <div className="App">
+      {video && <>
+        <video width="750" height="500" controls >
+          <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4"/>
+        </video>
+      </>}
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <form onSubmit={handleSubmit}>
+          <input type="file" id="video" name="video" accept="video/*" />
+          <input type="submit" value="Submit" />
+        </form>
       </header>
     </div>
   );
