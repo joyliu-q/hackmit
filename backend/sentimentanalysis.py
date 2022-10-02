@@ -5,7 +5,6 @@ import nltk
 
 from video_to_text import TranscriptSegment
 
-
 songs = {
     "Happy": ["HAPPY"],
     "Sad": ["SAD"],
