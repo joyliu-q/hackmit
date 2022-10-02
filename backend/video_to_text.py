@@ -6,8 +6,8 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
 import whisper
 from fastapi import UploadFile
-from langdetect import detect
-from googletrans import Translator, constants
+# from langdetect import detect
+# from googletrans import Translator, constants
 
 class TranscriptSegment:
   def __init__(self, text, start_time, end_time):
@@ -23,7 +23,6 @@ class VideoToText:
   def __init__(self):
     self.model = whisper.load_model("base")
     self.options = whisper.DecodingOptions()
-    self.translator = Translator()
 
   def upload_file(self, file: UploadFile):
     # save file locally
@@ -38,14 +37,17 @@ class VideoToText:
   def video_to_text(self, audio_path):
       return self.transcribe_audio(audio_path)
 
-  def transcribe_audio(self, audio_path):    
+  def transcribe_audio(self, audio_path):
     transcript = self.model.transcribe(audio_path)
-    first_segment = transcript['segments'][0]
-    isEnglish = detect(first_segment['text']) == "en"
-    if not isEnglish:
-      transcript['segments'] = [TranscriptSegment(self.translator.translate(s['text']), s['start'], s['end']) for s in transcript['segments']]
-    else:
-      transcript['segments'] = [TranscriptSegment(s['text'], s['start'], s['end']) for s in transcript['segments']]
+    # first_segment = transcript['segments'][0]
+    # isEnglish = detect(first_segment['text']) == "en"
+    # if not isEnglish:
+    #   translator = Translator()
+    #   for segment in transcript['segments']:
+    #     segment['text'] = translator.translate(segment['text']).text
+    #   transcript['segments'] = [TranscriptSegment(s['text'], s['start'], s['end']) for s in transcript['segments']]
+    # else:
+    transcript['segments'] = [TranscriptSegment(s['text'], s['start'], s['end']) for s in transcript['segments']]
     return transcript
 
 # Example usage
